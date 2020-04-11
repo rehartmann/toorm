@@ -1,6 +1,6 @@
 # Toorm
 
-Toorm is an object-relational mapper for Tcl and TclOO.
+Toorm is an object-relational mapper (ORM) for Tcl and TclOO.
 
 ## Running the tests
 
