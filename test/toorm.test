@@ -1,0 +1,84 @@
+#!/bin/sh
+# Execute tclsh from the user's PATH \
+exec tclsh "$0" ${1+"$@"}
+
+package require tcltest
+eval ::tcltest::configure $argv
+namespace import ::tcltest::*
+
+package require tdbc::postgres
+
+source person.tcl
+source ../toorm.tcl
+namespace import toorm::*
+
+set ::SETUP {
+    catch {exec dropdb testdb}
+    exec createdb testdb
+    tdbc::postgres::connection create conn -database testdb
+    set stmt [conn prepare "CREATE TABLE persons (
+            id integer primary key,
+            name text)"]
+    try {
+        $stmt execute
+    } finally {
+        $stmt close
+    }
+    conn close
+}
+set ::CLEANUP {
+    exec dropdb testdb
+}
+
+test toorm {} -setup $SETUP -cleanup $CLEANUP -body {
+    set personId 1
+
+    idVariable Person id
+
+    tdbc::postgres::connection create conn -database testdb
+    try {
+        EntityManager create em conn
+        em beginTransaction
+        Person create p
+        p setId $personId
+        p setName Fred
+        em persist p
+        em commit
+        
+        em beginTransaction
+        set p [em find Person $personId]
+        set expected Fred
+        set name [$p getName]
+        if {$name != $expected} {
+            error "getName should return $expected, but returns $name"
+        }
+        $p setName Fritz
+        em commit
+        em detach $p
+
+        set q [em createNativeQuery {SELECT * FROM persons} Person]
+        set p [$q getResults]
+        set expected Fritz
+        set name [$p getName]
+        if {$name != $expected} {
+            error "getName should return $expected, but returns $name"
+        }
+        $q destroy
+
+        em beginTransaction
+        set p [em find Person $personId]
+        $p destroy
+        em commit
+        
+        set p [em find Person $personId]
+        if {$p != {}} {
+            error "find should return {}, but returns $p"
+        }
+
+        em destroy
+    } finally {
+        conn close
+    }
+}
+
+cleanupTests
