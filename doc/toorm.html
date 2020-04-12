@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>Toorm</title>
+<link rel="stylesheet" href="style.css">
+<body>
+<h1>Toorm</h1>
+<h2>Object-relational mapping for TclOO</h2>
+
+<h3>Synopsis</h3>
+
+<p>package require TclOO<br>
+package require tdbc<br>
+package require logger<br>
+package require toorm
+
+<p><a href="#create"><i><b>toorm::EntityManager create</b> name connection</i></a><br>
+<a href="#new"><i><b>toorm::EntityManager new</b> connection</i></a><br>
+<a href="#em-beginTransaction"><i><b>${em} beginTransaction</b></i></a><br>
+<a href="#em-commit"><i><b>${em} commit</b></i></a><br>
+<a href="#em-createNativeQuery"><i><b>${em} createNativeQuery</b> queryString class</i></a><br>
+<a href="#em-destroy"><i><b>${em} destroy</b></i></a><br>
+<a href="#em-detach"><i><b>${em} detach</b> obj</i></a><br>
+<a href="#em-find"><i><b>${em} find</b> class id</i></a><br>
+<a href="#em-flush"><i><b>${em} flush</b></i></a><br>
+<a href="#em-getConnection"><i><b>${em} getConnection</b></i></a><br>
+<a href="#em-persist"><i><b>${em} persist</b> obj</i></a><br>
+<a href="#em-rollback"><i><b>${em} rollback</b></i></a><br>
+<a href="#query-destroy"><i><b>${query} destroy</b></i></a><br>
+<a href="#query-getResults"><i><b>${query} getResults</b></i></a><br>
+<a href="#idVariable"><i><b>toorm::idVariable</b> class varname</i></a><br>
+<a href="#classNameToDatabase"><i><b>toorm::classNameToDatabase</b> class</i></a><br>
+<a href="#variableNameToDatabase"><i><b>toorm::variableNameToDatabase</b> name</i></a>
+
+<h3>Description</h3>
+
+<dl>
+<dt id="create"><i><b>toorm::EntityManager create</b> name connection</i>
+<dd>Creates a new entity manager instance called <i>name</i> from the TDBC connection <i>connection</i>.
+<dt id="new"><i><b>toorm::EntityManager new</b> connection</i>
+<dd>Creates a new entity manager instance from the TDBC connection <i>connection</i>
+and returns the fully qualified name of the instance.
+<dt id="em-beginTransaction"><i><b>${em} beginTransaction</b></i>
+<dd>Starts a transaction.
+<dt id="em-commit"><i><b>${em} commit</b></i></a>
+<dd>Commits a transaction, writing any unflushed changes to the database.
+<dt id="em-createNativeQuery"><i><b>${em} createNativeQuery</b> queryString class</i>
+<dd>Creates a query instance for retrieving instances of class <i>class</i> from an SQL statement <i>queryString</i>
+and returns its fully qualified name.
+<dt id="em-destroy"><i><b>${em} destroy</b></i>
+<dd>Destroys the entity manager instance.
+<dt id="em-detach"><i><b>${em} detach</b> obj</i>
+<dd>Detaches the object named <i>obj</i> from the entity manager.
+Unflushed changes made to the object will not be written to the database.
+<dt id="em-find"><i><b>${em} find</b> class id</i>
+<dd>Finds an instance of class <i>class</i> by its primary key <i>id</i>.
+Returns the name of the instance if the instance was found, otherwise an empty string.
+<dt id="em-flush"><i><b>${em} flush</b></i>
+<dd>Writes all unflushed changes to the database.
+<dt id="em-getConnection"><i><b>${em} getConnection</b></i>
+<dd>Returns the TDBC connection of the entity manager.
+<dt id="em-persist"><i><b>${em} persist</b> obj</i>
+<dd>Makes the object <i>obj</i> managed and persistent.
+<dt id="em-rollback"><i><b>${em} rollback</b></i></a>
+<dd>Rolls back the current transaction.
+<dt id="query-destroy"><i><b>${query} destroy</b></i>
+<dd>Destroys the query instance.
+<dt id="query-getResults"><i><b>${query} getResults</b></i>
+<dd>Returns the results of the query as a list of object names.
+<dt id="idVariable"><i><b>toorm::idVariable</b> class varname</i>
+<dd>Makes <i>varname</i> the key of class <i>class</i>.
+<i>idVariable</i> must be invoked for a class before instances of a class can be read from or written to the database.
+<dt id="classNameToDatabase"><i><b>toorm::classNameToDatabase</b> class</i>
+<dd>Converts a class name to a database table name. All characters are converted to lowercase.
+If a character which is not the first one is an uppercase character, an underscore is inserted after that character.
+An 's' is appended to the result. For example, <b>MyPerson</b> is converted to <b>my_persons</b>.
+<dt id="variableNameToDatabase"><i><b>toorm::variableNameToDatabase</b> name</i>
+<dd>Converts a variable name to a database column name. All characters are converted to lowercase.
+If a character which is not the first one is an uppercase character, an underscore is inserted after that character.
+For example, <b>firstName</b> is converted to <b>first_name</b>.
+</dl>
+
+</html>

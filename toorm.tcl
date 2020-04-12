@@ -1,4 +1,6 @@
+package require tdbc
 package require logger
+package provide toorm 0.1
 
 namespace eval toorm {
 
@@ -26,7 +28,7 @@ namespace eval toorm {
             if {[string is upper $c] && $i > 0} {
                 append result _[string tolower $c]
             } else {
-                append result $c
+                append result [string tolower $c]
             }
         }
         return ${result}s

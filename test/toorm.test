@@ -8,9 +8,9 @@ namespace import ::tcltest::*
 
 package require tdbc::postgres
 
-source person.tcl
-source ../toorm.tcl
+package require toorm
 namespace import toorm::*
+source person.tcl
 
 set ::SETUP {
     catch {exec dropdb testdb}
