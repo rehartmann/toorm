@@ -66,7 +66,7 @@ namespace eval toorm {
         # The key is class,id
         variable entities
         
-        # A list of persisted entities which are written to the database
+        # A list of persisted entities which are inserted into the database
         # at transaction commit.
         variable persisted
 
