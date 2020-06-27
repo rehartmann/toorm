@@ -261,9 +261,9 @@ namespace eval toorm {
             set first 1
             foreach v $vars {
                 if {$first} {
-                set first 0
+                    set first 0
                 } else {
-                append s {, }
+                    append s {, }
                 }
                 append s [variableNameToDatabase $v]
             }
@@ -271,9 +271,9 @@ namespace eval toorm {
             set first 1
             foreach v $vars {
                 if {$first} {
-                set first 0
+                    set first 0
                 } else {
-                append s {, }
+                    append s {, }
                 }
                 append s :
                 append s [variableNameToDatabase $v]
